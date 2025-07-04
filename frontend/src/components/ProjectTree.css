@@ -1,0 +1,59 @@
+.project-tree {
+  padding: 0 0 0 8px;
+}
+
+.project-tree-header {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.add-btn {
+  background: #1677ff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+.add-btn:hover {
+  background: #409eff;
+}
+
+.project-list {
+  list-style: none;
+  padding-left: 16px;
+  margin: 0;
+}
+
+.project-item {
+  padding: 4px 0;
+  color: #444;
+}
+
+.project-item.selected {
+  background: #e6f0ff;
+  color: #1677ff;
+  font-weight: bold;
+}
+
+.add-project-input {
+  margin-top: 8px;
+}
+.add-project-input input {
+  width: 90%;
+  padding: 4px 8px;
+  border: 1px solid #ececec;
+  border-radius: 4px;
+  font-size: 0.95rem;
+} 

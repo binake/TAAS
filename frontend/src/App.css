@@ -1,0 +1,189 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background: #f4f8fb;
+}
+
+.sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #e3eaf2;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0 0 0;
+  box-shadow: 2px 0 8px 0 #e3eaf2;
+}
+
+.sidebar-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 0 32px 24px 32px;
+  color: #1677ff;
+  letter-spacing: 2px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+.sidebar-menu-item {
+  padding: 14px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #444;
+  font-size: 1.08rem;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 2px;
+}
+
+.sidebar-menu-item.active,
+.sidebar-menu-item:hover {
+  background: linear-gradient(90deg, #e6f0ff 0%, #f0f6ff 100%);
+  color: #1677ff;
+  font-weight: 600;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  height: 68px;
+  background: #fff;
+  border-bottom: 1px solid #e3eaf2;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0 2px 8px 0 #e3eaf2;
+}
+
+.main-header-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1677ff;
+  letter-spacing: 2px;
+}
+
+.main-section {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 0 0 0;
+}
+
+.placeholder {
+  color: #aaa;
+  font-size: 1.15rem;
+  padding: 48px 0;
+}
+
+/* 卡片样式 */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px 0 #e3eaf2;
+  padding: 32px 40px;
+  margin-bottom: 32px;
+}
+
+/* 按钮样式 */
+.button {
+  background: linear-gradient(90deg, #1677ff 0%, #3ba0ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 #e3eaf2;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.button:hover {
+  background: linear-gradient(90deg, #3ba0ff 0%, #1677ff 100%);
+  box-shadow: 0 4px 16px 0 #b3d8ff;
+}
+
+/* 表格样式 */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 #e3eaf2;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+th, td {
+  padding: 16px 12px;
+  text-align: left;
+  font-size: 1rem;
+}
+th {
+  background: #f4f8fb;
+  color: #1677ff;
+  font-weight: 600;
+  border-bottom: 2px solid #e3eaf2;
+}
+td {
+  border-bottom: 1px solid #e3eaf2;
+}
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f4f8fb;
+}
+::-webkit-scrollbar-thumb {
+  background: #e3eaf2;
+  border-radius: 4px;
+}
