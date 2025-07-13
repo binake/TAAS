@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>简历独立预览</title>
+  <link rel="stylesheet" href="/src/components/ResumePages.css" />
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import React from "https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js";
+    import { createRoot } from "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client.min.js";
+    import ResumeStandalone from "/src/ResumeStandalone.js";
+    const root = createRoot(document.getElementById("root"));
+    root.render(React.createElement(ResumeStandalone));
+  </script>
+</body>
+</html> 

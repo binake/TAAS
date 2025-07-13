@@ -8,6 +8,8 @@ const FileSchema = new mongoose.Schema({
   size: Number,
   uploadDate: { type: Date, default: Date.now },
   status: { type: String, default: '未解析' },
-  meta: Object
+  meta: Object,
+  parseResult: { type: Object }, // 解析结果
+  parseError: { type: String }, // 解析错误
 });
 module.exports = mongoose.model('File', FileSchema); 

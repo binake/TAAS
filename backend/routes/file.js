@@ -62,4 +62,60 @@ router.delete('/:id', async (req, res) => {
   res.json({ success: true });
 });
 
+// 解析简历API
+router.post('/parse/:id', async (req, res) => {
+  const { id } = req.params;
+  const url = 'https://ap-beijing.cloudmarket-apigw.com/service-9wsy8usn/ResumeParser';
+  const secretId = 'RrIawnDnCs4ha4hs';
+  const secretKey = 'JQSIHcT3xjgVAD1p33kvcn3I6KG4TcrB';
+  const fs = require('fs');
+  const crypto = require('crypto');
+  const { v4: uuidv4 } = require('uuid');
+  try {
+    const fileDoc = await File.findById(id);
+    if (!fileDoc) return res.status(404).json({ error: 'File not found' });
+    const filePath = path.join(__dirname, '../uploads', fileDoc.filename);
+    const fileBuffer = fs.readFileSync(filePath);
+    const base64Content = fileBuffer.toString('base64');
+    const date = new Date().toUTCString();
+    const signStr = `x-date: ${date}`;
+    const sign = crypto.createHmac('sha1', secretKey).update(signStr).digest('base64');
+    const auth = JSON.stringify({ id: secretId, 'x-date': date, signature: sign });
+    const axios = require('axios');
+    let resp;
+    try {
+      resp = await axios.post(url, {
+        file_name: fileDoc.originalname,
+        file_cont: base64Content,
+        need_avatar: 1
+      }, {
+        headers: {
+          'request-id': uuidv4(),
+          'Authorization': auth,
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      });
+    } catch (apiErr) {
+      console.error('第三方API请求失败:', apiErr.response ? apiErr.response.data : apiErr);
+      throw new Error('第三方API请求失败: ' + (apiErr.response ? JSON.stringify(apiErr.response.data) : apiErr.message));
+    }
+    fileDoc.parseResult = resp.data;
+    fileDoc.status = '已解析';
+    fileDoc.parseError = undefined;
+    await fileDoc.save();
+    // 保存解析结果到ParseResult表
+    const ParseResult = require('../models/ParseResult');
+    await ParseResult.findOneAndUpdate(
+      { fileId: fileDoc._id },
+      { data: resp.data, updatedAt: new Date() },
+      { upsert: true, new: true }
+    );
+    res.json({ success: true, result: resp.data });
+  } catch (err) {
+    console.error('解析API出错:', err.stack || err);
+    await File.findByIdAndUpdate(id, { status: '解析失败', parseError: err.message });
+    res.status(500).json({ error: '解析失败', detail: err.message });
+  }
+});
+
 module.exports = router; 

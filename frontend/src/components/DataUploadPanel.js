@@ -52,23 +52,18 @@ function DataUploadPanel({ onlyType }) {
     setFiles(fs => fs.map(f => f._id === id ? { ...f, enabled: !f.enabled } : f));
   };
 
-  // 解析按钮模拟进度
-  const handleParse = (id) => {
+  // 解析按钮：调用后端API
+  const handleParse = async (id) => {
     setParsing(p => ({ ...p, [id]: 0 }));
-    let percent = 0;
-    const timer = setInterval(() => {
-      percent += Math.floor(Math.random()*30)+10;
-      setParsing(p => ({ ...p, [id]: Math.min(percent, 100) }));
-      if (percent >= 100) {
-        clearInterval(timer);
-        setParsing(p => {
-          const np = { ...p };
-          delete np[id];
-          return np;
-        });
-        setFiles(fs => fs.map(f => f._id === id ? { ...f, status: '成功', chunkCount: Math.floor(Math.random()*10)+1 } : f));
-      }
-    }, 400);
+    try {
+      const res = await fetch(`/api/files/parse/${id}`, { method: 'POST' });
+      if (!res.ok) throw new Error('解析失败');
+      await fetchFiles();
+    } catch (e) {
+      setFiles(fs => fs.map(f => f._id === id ? { ...f, status: '解析失败' } : f));
+    } finally {
+      setParsing(p => { const np = { ...p }; delete np[id]; return np; });
+    }
   };
 
   // 搜索过滤

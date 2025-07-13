@@ -41,7 +41,7 @@ function App() {
       <main className="main-content">
         <header className="main-header">
           <div className="main-header-title">AI简历分析系统</div>
-        </header>
+      </header>
         <section className="main-section">
           {activeMenu === 'project' ? (
             selectedProjectId ? (
